@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Meet | UNCC Car Meets</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;700&family=Saira:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles/default.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+      
+      <!-- Navigation -->
+      <%- include('../partials/nav') %>
+
+      <main>
+        <h1>Edit Meet</h1>
+
+        <form action="/events/<%= event._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+  
+
+          <input type="text" name="title" value="<%= event.title %>" required>
+          <input type="datetime-local" name="start" value="<%= event.startISO %>" required>
+          <input type="datetime-local" name="end" value="<%= event.endISO %>" required>
+          <textarea name="details" required><%= event.details %></textarea>
+          <select name="category" required>
+            <option value="On Campus" <%= event.category === 'On Campus' ? 'selected' : '' %>>On Campus</option>
+            <option value="Off Campus" <%= event.category === 'Off Campus' ? 'selected' : '' %>>Off Campus</option>
+            <option value="Other" <%= event.category === 'Other' ? 'selected' : '' %>>Other</option>
+          </select>
+          <input type="file" name="image" accept="image/*" />
+          <button type="submit">Update</button>
+        </form>
+
+      </main>
+
+      <!-- Include Footer -->
+      <%- include('../partials/footer') %>
+    </div>
+  </div>
+</body>
+</html>

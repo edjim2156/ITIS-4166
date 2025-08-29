@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNCC Car Meets | ITIS 4166 | Sign Up</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Saira&family=Urbanist&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles/default.css" />
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+
+      <!-- Navigation -->
+      <%- include('../partials/nav') %>
+
+      <div class="signup-container">
+
+        <% if (flashError && flashError.length > 0) { %>
+          <ul class="error-messages">
+            <% flashError.forEach(err => { %>
+              <li><%= err %></li>
+            <% }) %>
+          </ul>
+        <% } %>
+
+        <% if (success && success.length > 0) { %>
+          <div class="alert alert-success"><%= success %></div>
+        <% } %>
+
+        <main>
+          <h1>Create Your Account</h1>
+          <p class="signup-subtitle">Sign up to explore meets on and off campus, post your own, and connect with other car enthusiasts.</p>
+
+          <form action="/signup" method="POST" class="signup-form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Norm The Niner"
+                required
+                value="<%= oldInput.username || '' %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="Norm"
+                required
+                value="<%= oldInput.firstName || '' %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Niner"
+                required
+                value="<%= oldInput.lastName || '' %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="norm@charlotte.edu"
+                required
+                value="<%= oldInput.email || '' %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a strong password"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                placeholder="Re-enter password"
+                required
+              />
+            </div>
+
+            <button type="submit">Sign Up</button>
+          </form>
+        </main>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../partials/footer') %>
+
+    </div>
+  </div>
+</body>
+</html>

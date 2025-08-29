@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UNCC Car Meets | ITIS 4166 | Create Event</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Saira&family=Urbanist&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles/default.css">
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+
+      <!-- Navigation -->
+      <%- include('../partials/nav') %>
+
+      <main>
+        <div class="newEvent">
+
+          <form action="/events/create" method="POST" enctype="multipart/form-data">
+            <h1>Create a Meet</h1>
+
+            <!-- Show Validation Errors -->
+            <% if (flashError && flashError.length > 0) { %>
+              <ul class="error-messages">
+                <% flashError.forEach(function(err) { %>
+                  <li><%= err %></li>
+                <% }); %>
+              </ul>
+            <% } %>
+
+            <label for="title">Meet Title:</label>
+            <input type="text" id="title" name="title" value="<%= (oldInput && oldInput.title) ? oldInput.title : '' %>" required>
+
+            <label for="start">Start Date & Time:</label>
+            <input type="datetime-local" id="start" name="start" value="<%= (oldInput && oldInput.start) ? oldInput.start : '' %>" required>
+
+            <label for="end">End Date & Time:</label>
+            <input type="datetime-local" id="end" name="end" value="<%= (oldInput && oldInput.end) ? oldInput.end : '' %>" required>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+              <option value="" <%= (!oldInput || !oldInput.category) ? 'selected' : '' %>>-- Select a Category --</option>
+              <option value="On Campus" <%= (oldInput && oldInput.category === 'On Campus') ? 'selected' : '' %>>On Campus</option>
+              <option value="Off Campus" <%= (oldInput && oldInput.category === 'Off Campus') ? 'selected' : '' %>>Off Campus</option>
+              <option value="Other" <%= (oldInput && oldInput.category === 'Other') ? 'selected' : '' %>>Other</option>
+            </select>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" value="<%= (oldInput && oldInput.location) ? oldInput.location : '' %>" required>
+
+            <label for="details">Meet Description:</label>
+            <textarea id="details" name="details" rows="4" required><%= (oldInput && oldInput.details) ? oldInput.details : '' %></textarea>
+
+            <label for="image">Upload a Photo:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <div class="button-group">
+              <button type="submit">Create Event</button>
+              <button type="reset" class="clear">Clear</button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <%- include('../partials/footer') %>
+
+    </div>
+  </div>
+</body>
+</html>

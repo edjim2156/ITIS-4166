@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNCC Car Meets | ITIS 4166 | Profile</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Saira:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles/default.css" />
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+
+      <%- include('../partials/nav') %>
+      
+      <div class="profile-container">
+        <main>
+          <% if (user) { %>
+            <h1>Welcome, <%= user.username %>!</h1>
+            <p>Email: <%= user.email %></p>
+            <p>Role: <strong><%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %></strong></p>
+            <p>Member since:
+              <% if (user.createdAt) { %>
+                <%= new Date(user.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              <% } else { %>
+                Unknown
+              <% } %>
+            </p>
+
+            <a href="/logout" class="btn">Logout</a>
+
+            <hr />
+
+            <h2>Your Event Posts</h2>
+            <% if (events && events.length > 0) { %>
+              <div class="events-grid">
+                <% events.forEach(event => { %>
+                  <a href="/events/<%= event._id %>" class="event-card">
+                    <h4><%= event.title %></h4>
+                    <p><strong>Date:</strong> <%= new Date(event.start).toLocaleDateString() %></p>
+                    <p><strong>Time:</strong> 
+                      <%= new Date(event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %> -
+                      <%= new Date(event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+                    </p>
+                  </a>
+                <% }) %>
+              </div>
+            <% } else { %>
+              <p>You haven't created any posts yet.</p>
+            <% } %>
+
+            <hr />
+
+            <h2>Your RSVPs</h2>
+            <% if (rsvps && rsvps.length > 0) { %>
+              <div class="events-grid">
+                <% rsvps.forEach(rsvp => { %>
+                  <% if (rsvp.event) { %>
+                    <a href="/events/<%= rsvp.event._id %>" class="event-card">
+                      <h4><%= rsvp.event.title %></h4>
+                      <p><strong>Date:</strong> <%= new Date(rsvp.event.start).toLocaleDateString() %></p>
+                      <p><strong>Your RSVP:</strong> <%= rsvp.response %></p>
+                    </a>
+                  <% } %>
+                <% }) %>
+              </div>
+            <% } else { %>
+              <p>You have not RSVPed to any events yet.</p>
+            <% } %>
+
+          <% } else { %>
+            <p>Profile data unavailable.</p>
+          <% } %>
+        </main>
+      </div>
+      
+      <%- include('../partials/footer') %>
+    </div>
+  </div>
+</body>
+</html>

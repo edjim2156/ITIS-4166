@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNCC Car Meets | ITIS 4166 | Home</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Saira:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles/default.css" />
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+      
+      <!-- Include Navigation -->
+      <%- include('../partials/nav') %>
+    <div class="home">  
+      <main>
+        <section class="hero">
+          <h1>UNCC Car Meets</h1>
+          <p>Connecting Charlotte's car community one meet at a time.</p>
+          <a href="/events" class="cta-button">View Upcoming Meets</a>
+        </section>
+
+        <section class="intro">
+          <h2>Welcome!</h2>
+          <p>Discover upcoming car meets hosted by students and locals around the UNCC area. Whether you drive a JDM, muscle, euro, or daily  everyone's welcome!</p>
+        </section>
+
+        <section class="features">
+          <div class="feature-card">
+            <h3>Meet Other Enthusiasts</h3>
+            <p>Share your builds and check out other rides.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Attend Local Events</h3>
+            <p>From small parking lot meets to large shows, we list them all.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Host Your Own</h3>
+            <p>Got a location and a plan? Submit your own event to get started.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+      <!-- Include Footer -->
+      <%- include('../partials/footer') %>
+
+    </div>
+  </div>
+
+</body>
+</html>

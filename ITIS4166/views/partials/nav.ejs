@@ -1,0 +1,14 @@
+<nav>    
+  <a href="/"><img src="/images/logo.jpeg" alt="UNCC Car Meets Logo" class="logo"></a>
+  <a href="/">Home</a>
+  <a href="/events">Events</a>
+  <% if (session && session.user) { %>
+    <a href="/events/new">Create an event</a>
+    <a href="/profile"> <%= session.user.username %>'s Profile</a>
+    <a href="/logout">Logout</a>
+  <% } else { %>
+    <a href="/signup">Sign up</a>
+    <a href="/login">Login</a>
+  <% } %>
+</nav>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error | UNCC Car Meets</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;700&family=Saira:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles/default.css" />
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+
+      <!-- Navigation -->
+      <%- include('../partials/nav') %>
+
+      <main class="error-container">
+        <h1>Oops! Something went wrong.</h1>
+        <h2>An Error Occurred</h2>
+
+        <% if (typeof message !== 'undefined' && message) { %>
+          <p><%= message %></p>
+        <% } else { %>
+          <p>Unexpected error. Please try again later.</p>
+        <% } %>
+
+        <% if (error && error.stack) { %>
+          <details style="white-space: pre-wrap; background-color: #f8f8f8; padding: 1em; border: 1px solid #ccc; margin-top: 1em;">
+            <summary>Technical Details</summary>
+            <pre><%= error.stack %></pre>
+          </details>
+        <% } %>
+
+        <a href="/" class="btn">Go Back Home</a>
+      </main>
+
+      <!-- Footer -->
+      <%- include('../partials/footer') %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= event.title %> | UNCC Car Meets | ITIS 4166</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Saira:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/styles/default.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+      <!-- Navigation -->
+      <%- include('../partials/nav') %>
+
+      <main>
+        <article class="event-detail" role="main" aria-label="Event details">
+          <header>
+            <h1><%= event.title %></h1>
+            <p><strong>Category:</strong> <%= event.category %></p>
+          </header>
+
+          <figure>
+            <img
+              src="<%= event.image || '/images/default.jpg' %>"
+              alt="Photo for <%= event.title %>"
+              class="event-photo"
+              loading="lazy"
+              width="300"
+              height="200"
+            />
+            <figcaption>
+              Hosted by <%= event.creatorName || "Unknown Host" %>
+            </figcaption>
+          </figure>
+
+          <section class="event-description">
+            <h2>Description</h2>
+            <p><%= event.details || "No description available." %></p>
+          </section>
+
+          <section class="event-datetime">
+            <h2>Date & Time</h2>
+            <time datetime="<%= event.start.toISOString() %>">
+              Start: <%= new Date(event.start).toLocaleString(undefined, {
+                dateStyle: 'full',
+                timeStyle: 'short',
+              }) %>
+            </time>
+            <br />
+            <time datetime="<%= event.end.toISOString() %>">
+              End: <%= new Date(event.end).toLocaleString(undefined, {
+                dateStyle: 'full',
+                timeStyle: 'short',
+              }) %>
+            </time>
+          </section>
+
+          <div class="event-actions" aria-label="Event actions">
+            <button class="back" onclick="history.back()" type="button">
+              ← Go Back
+            </button>
+
+            <% if (session?.user?._id && event.createdBy && session.user._id.toString() === event.createdBy._id.toString()) { %>
+              <form
+                action="/events/<%= event._id %>?_method=DELETE"
+                method="POST"
+                style="display: inline"
+                onsubmit="return confirm('Are you sure you want to delete this event?');"
+              >
+                <button class="delete" type="submit">Delete Event</button>
+              </form>
+
+              <form action="/events/<%= event._id %>/edit" method="GET" style="display: inline;">
+                <button class="edit" type="submit">Edit</button>
+              </form>
+            <% } %>
+          </div>
+
+          <div class="rsvp-section">
+            <h2>RSVP</h2>
+
+            <% if (session?.user?._id) { %>
+              <form action="/events/<%= event._id %>/rsvp" method="POST">
+                <label><input type="radio" name="response" value="Yes" required> Yes</label>
+                <label><input type="radio" name="response" value="No" required> No</label>
+                <label><input type="radio" name="response" value="Maybe" required> Maybe</label>
+                <button type="submit">Submit RSVP</button>
+              </form>
+            <% } else { %>
+              <p><a href="/login">Log in</a> to RSVP.</p>
+            <% } %>
+
+            <h3>RSVP Summary:</h3>
+            <ul>
+              <li>Yes: <%= counts.Yes || 0 %></li>
+              <li>No: <%= counts.No || 0 %></li>
+              <li>Maybe: <%= counts.Maybe || 0 %></li>
+            </ul>
+          </div>
+        </article>
+      </main>
+
+      <!-- Footer -->
+      <%- include('../partials/footer') %>
+    </div>
+  </div>
+</body>
+</html>

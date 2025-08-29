@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNCC Car meets| ITIS 4166 | Events</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Saira:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles/default.css">
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="content-wrapper">
+
+        <!-- Navigation -->
+        <%- include('../partials/nav') %>
+
+        <main>
+            <h1>Events</h1>
+
+            <!-- Flash Messages -->
+            <% if (success && success.length > 0) { %>
+                <div class="flash-message success">
+                    <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+                    <ul>
+                        <% success.forEach(msg => { %>
+                            <li><%= msg %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+
+            <% if (error && error.length > 0) { %>
+                <div class="flash-message error">
+                    <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+                    <ul>
+                        <% error.forEach(msg => { %>
+                            <li><%= msg %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+
+
+            <!-- Filter Form -->
+            <form method="GET" action="/events" class="category-filter-form">
+                <label for="category">Filter by Category:</label>
+                <select name="category" id="category" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                    <% categories.forEach(cat => { %>
+                        <option value="<%= cat %>" <%= selectedCategory === cat ? 'selected' : '' %>><%= cat %></option>
+                    <% }) %>
+                </select>
+            </form>
+
+            <section class="event-category">
+                <h3><%= selectedCategory ? selectedCategory + ' Events' : 'All Events' %></h3>
+                <div class="events-grid">
+                    <% events.forEach(event => { %>
+                        <a href="/events/<%= event._id %>" class="event-card">
+                            <h4><%= event.title %></h4>
+                            <p><strong>Host:</strong> <%= event.creatorName %></p>
+                            <p><strong>Date:</strong> <%= new Date(event.start).toLocaleDateString() %></p>
+                            <p><strong>Time:</strong> 
+                                <%= new Date(event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %> - 
+                                <%= new Date(event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+                            </p>
+                        </a>
+                    <% }); %>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <%- include('../partials/footer') %>
+        </div>
+    </div>
+
+    <script>
+    // Auto-dismiss flash messages after 5 seconds
+    setTimeout(() => {
+        const flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(msg => {
+        msg.style.opacity = '0';
+        setTimeout(() => msg.remove(), 500);
+        });
+    }, 5000);
+    </script>
+
+</body>
+</html>
