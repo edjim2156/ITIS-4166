@@ -1,7 +1,8 @@
 # Event Management Web Application
+UNCC Car Meet Application
 
 A full-stack **event management web app** built with **Node.js, Express, MongoDB, and EJS**, following the MVC design pattern.  
-This project was developed week by week as part of **ITIS 4166 (Spring 2025)** and demonstrates secure coding practices, authentication, and CRUD functionality.  
+This project was developed week by week as part of **ITIS 4166 (Summer 2025)** and demonstrates secure coding practices, authentication, and CRUD functionality.  
 
 ---
 
